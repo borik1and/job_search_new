@@ -1,18 +1,30 @@
-from abc import ABC, abstractmethod
+# from abc import ABC, abstractmethod
+#
+#
+# class JobSiteAPI(ABC):
+#     def __init__(self, api_key):
+#         self.api_key = api_key
+#
+#     @abstractmethod
+#     def connect(self):
+#         pass
+#
+#     @abstractmethod
+#     def get_jobs(self, keywords, location):
+#         pass
+#
+#
+# class MainJob(JobSiteAPI):
+#     def __init__(self, api_key):
+#         super().__init__(api_key)
+#
+#     pass
 
 
-class JobSiteAPI(ABC):
-    def __init__(self, api_key):
-        self.api_key = api_key
-
-    @abstractmethod
-    def connect(self):
-        pass
-
-    @abstractmethod
-    def get_jobs(self, keywords, location):
-        pass
+import requests
 
 
-class MainJob:
-    pass
+class JodSearch:
+    def __init__(self, keyword, area):
+        self.keyword = keyword
+        self.area = area

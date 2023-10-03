@@ -26,8 +26,7 @@ from requests.auth import HTTPBasicAuth
 
 
 class JodSearch:
-    def __init__(self, keyword, location) \
-            :
+    def __init__(self, keyword, location):
         self.keyword = keyword
         self.location = location
 
@@ -70,6 +69,7 @@ class JodSearch:
             print(f"Произошла ошибка: {e}")
 
     def hh_api_search(self):
+
         # данные аутентификации
         client_id = 'J53D8HKIPP1HV1F82IPVO5QF97NVO901RCQ72ID6UAFV6QV85FVGNL131O2NH2GI'
         client_secret = 'H4289AFGCNFTEK9ATRTV9Q130US9VA7Q8LNE1TRQQ5GNJV0OBTBGR40SEKQOQ4IU'
@@ -93,7 +93,7 @@ class JodSearch:
             params = {
                 'text': 'Python Developer',  # Ваш запрос по ключевым словам
                 'area': 1,  # Код региона (например, 1 для Москвы)
-                'per_page': 10  # Количество результатов на странице
+                'per_page': 100  # Количество результатов на странице
             }
 
             headers = {
@@ -109,7 +109,8 @@ class JodSearch:
 
                     # Проверяем наличие информации о зарплате
                     if vacancy['salary']:
-                        salary_range = f"{vacancy['salary']['from']} - {vacancy['salary']['to']} {vacancy['salary']['currency']}"
+                        salary_range = (f"{vacancy['salary']['from']}"
+                                        f" - {vacancy['salary']['to']} {vacancy['salary']['currency']}")
                     else:
                         salary_range = "Информация о зарплате отсутствует"
 

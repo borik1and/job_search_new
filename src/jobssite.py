@@ -22,12 +22,12 @@
 
 
 import requests
-
-
+from requests.auth import HTTPBasicAuth
 
 
 class JodSearch:
-    def __init__(self, keyword, location):
+    def __init__(self, keyword, location) \
+            :
         self.keyword = keyword
         self.location = location
 
@@ -68,3 +68,55 @@ class JodSearch:
             print(f"Произошла ошибка при запросе к API: {e}")
         except Exception as e:
             print(f"Произошла ошибка: {e}")
+
+    def hh_api_search(self):
+        # данные аутентификации
+        client_id = 'J53D8HKIPP1HV1F82IPVO5QF97NVO901RCQ72ID6UAFV6QV85FVGNL131O2NH2GI'
+        client_secret = 'H4289AFGCNFTEK9ATRTV9Q130US9VA7Q8LNE1TRQQ5GNJV0OBTBGR40SEKQOQ4IU'
+
+        # Запрос на получение токена доступа (токена OAuth2)
+        token_url = 'https://hh.ru/oauth/token'
+        data = {
+            'grant_type': 'client_credentials',
+            'client_id': client_id,
+            'client_secret': client_secret
+        }
+
+        # Выполняем запрос на получение токена
+        response = requests.post(token_url, data=data, auth=HTTPBasicAuth(client_id, client_secret))
+
+        if response.status_code == 200:
+            access_token = response.json().get('access_token')
+
+            # Пример запроса к API с использованием токена доступа
+            api_url = 'https://api.hh.ru/vacancies'
+            params = {
+                'text': 'Python Developer',  # Ваш запрос по ключевым словам
+                'area': 1,  # Код региона (например, 1 для Москвы)
+                'per_page': 10  # Количество результатов на странице
+            }
+
+            headers = {
+                'Authorization': f'Bearer {access_token}'
+            }
+
+            response = requests.get(api_url, params=params, headers=headers)
+
+            if response.status_code == 200:
+                vacancies = response.json()
+                for vacancy in vacancies['items']:
+                    print(f"Название вакансии: {vacancy['name']}")
+
+                    # Проверяем наличие информации о зарплате
+                    if vacancy['salary']:
+                        salary_range = f"{vacancy['salary']['from']} - {vacancy['salary']['to']} {vacancy['salary']['currency']}"
+                    else:
+                        salary_range = "Информация о зарплате отсутствует"
+
+                    print(f"Зарплата: {salary_range}")
+                    print(f"Ссылка: {vacancy['alternate_url']}")
+                    print("\n")
+            else:
+                print(f'Ошибка при выполнении запроса к API: {response.status_code}')
+        else:
+            print(f'Ошибка при получении токена доступа: {response.status_code}')

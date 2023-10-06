@@ -40,7 +40,7 @@ class JobSearch(JobSiteAPI):
         params = {
             'keyword': self.keyword,
             'town': self.location,
-            'page': 1,  # Номер страницы результатов (начиная с 1)
+            'page': 0,  # Номер страницы результатов (начиная с 1)
         }
         # Заголовки запроса с вашим API-токеном
         headers = {
@@ -62,8 +62,10 @@ class JobSearch(JobSiteAPI):
     def hh_api_search(self):
 
         # данные аутентификации
-        client_id = self.client_id
-        client_secret = self.client_secret
+        client_id = 'J53D8HKIPP1HV1F82IPVO5QF97NVO901RCQ72ID6UAFV6QV85FVGNL131O2NH2GI'
+        client_secret = 'H4289AFGCNFTEK9ATRTV9Q130US9VA7Q8LNE1TRQQ5GNJV0OBTBGR40SEKQOQ4IU'
+        # client_id = self.client_id
+        # client_secret = self.client_secret
 
         # Запрос на получение токена доступа (токена OAuth2)
         token_url = 'https://hh.ru/oauth/token'
@@ -92,24 +94,9 @@ class JobSearch(JobSiteAPI):
             }
 
             response = requests.get(api_url, params=params, headers=headers)
+            vacancies = response.json()
+            return vacancies
 
-            if response.status_code == 200:
-                vacancies = response.json()
-                for vacancy in vacancies['items']:
-                    print(f"Название вакансии: {vacancy['name']}")
-
-                    # Проверяем наличие информации о зарплате
-                    if vacancy['salary']:
-                        salary_range = (f"{vacancy['salary']['from']}"
-                                        f" - {vacancy['salary']['to']} {vacancy['salary']['currency']}")
-                    else:
-                        salary_range = "Информация о зарплате отсутствует"
-
-                    print(f"Зарплата: {salary_range}")
-                    print(f"Ссылка: {vacancy['alternate_url']}")
-                    print("\n")
-            else:
-                print(f'Ошибка при выполнении запроса к API: {response.status_code}')
         else:
             print(f'Ошибка при получении токена доступа: {response.status_code}')
 
@@ -128,4 +115,5 @@ if superjob_data:
 if hh_data:
     for vacancy in hh_data['items']:
         print(f"Название вакансии: {vacancy['name']}")
+        print(vacancy['url'])
         # Остальная обработка данных HH.ru

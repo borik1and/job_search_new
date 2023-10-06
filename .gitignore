@@ -4,9 +4,9 @@
 /.idea/.gitignore
 /.idea/.name
 /.idea/job_search.iml
-/main.py
 /.idea/misc.xml
 /.idea/modules.xml
 /.idea/inspectionProfiles/profiles_settings.xml
 /pyproject.toml
 /.idea/vcs.xml
+/poetry.lock

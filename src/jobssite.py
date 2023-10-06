@@ -1,3 +1,4 @@
+import json
 from abc import ABC, abstractmethod
 import requests
 from requests.auth import HTTPBasicAuth
@@ -19,6 +20,11 @@ class JobSiteAPI(ABC):
         pass
 
 
+def save_to_json(file):
+    with open('src/job.json', 'w') as j_f:
+        json.dump(file, j_f)
+
+
 class JobSearch(JobSiteAPI):
     def __init__(self, keyword, location):
         super().__init__()
@@ -32,6 +38,7 @@ class JobSearch(JobSiteAPI):
     def get_jobs(self):
         pass
 
+    @property
     def superjob_search(self):
         api_token = self.api_token
         # URL для доступа к API superjob.ru
@@ -40,7 +47,7 @@ class JobSearch(JobSiteAPI):
         params = {
             'keyword': self.keyword,
             'town': self.location,
-            'page': 0,  # Номер страницы результатов (начиная с 1)
+            'page': 1,  # Номер страницы результатов (начиная с 1)
         }
         # Заголовки запроса с вашим API-токеном
         headers = {
@@ -59,6 +66,7 @@ class JobSearch(JobSiteAPI):
             print(f"Произошла ошибка: {e}")
             return None
 
+    @property
     def hh_api_search(self):
 
         # данные аутентификации
@@ -103,17 +111,21 @@ class JobSearch(JobSiteAPI):
 
 # Создание экземпляра класса JobSearch и выполнение поиска
 job_search = JobSearch('python', 'Москва')
-superjob_data = job_search.superjob_search()
-hh_data = job_search.hh_api_search()
+super_job_data = job_search.superjob_search
+hh_data = job_search.hh_api_search
 
 # Теперь вы можете обработать результаты поиска, например, вывести их на экран
-if superjob_data:
-    for vacancy in superjob_data['objects']:
+if super_job_data:
+    for vacancy in super_job_data['objects']:
         print(f"Название вакансии: {vacancy['profession']}")
-        # Остальная обработка данных SuperJob
+        # print(vacancy['url'])
+        try:
+            print(f'Зарплата: {vacancy["salary"][0]["from"]} - '
+                  f'{vacancy["salary"][0]["to"]} {vacancy["salary"][0]["currency"]}')
+        except KeyError:
+            print("Отсутствуют данные")
 
 if hh_data:
     for vacancy in hh_data['items']:
         print(f"Название вакансии: {vacancy['name']}")
         print(vacancy['url'])
-        # Остальная обработка данных HH.ru

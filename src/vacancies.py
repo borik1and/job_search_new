@@ -14,8 +14,8 @@ class Vacancy:
         return f"{self.__class__.__name__}('{self.name}', '{self.url}', '{self.salary}', '{self.exp}')"
 
     def __str__(self):
-        return  (f"{self.__class__.__name__}('Професия: {self.name}', 'Страничка оъявления: {self.url}',"
-                 f" 'Зарплата: {self.salary}', 'Опыт: {self.exp}')")
+        return (f"{self.__class__.__name__}('Професия: {self.name}', 'Страничка оъявления: {self.url}',"
+                f" 'Зарплата: {self.salary}', 'Опыт: {self.exp}')")
         pass
 
     def instantiate_from_json(self, file_name='vacancy.json'):
@@ -25,7 +25,6 @@ class Vacancy:
         for vacancy in data['vacancies']:
             Vacancy.all.append(Vacancy(vacancy['name'], vacancy['url'], vacancy['salary'], vacancy['exp']))
             return Vacancy.all
-
 
     def sort_vacancy(self):
         pass

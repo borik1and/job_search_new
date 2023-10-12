@@ -14,7 +14,7 @@ class HH_API(API):
         self.params = {
             'per_page': 100,
             'text': keyword,
-            'area': 67
+            'area': '67'
         }
 
     def __repr__(self):
@@ -95,7 +95,7 @@ class SJ_API(API):
     #     return areas
 
     def format_vacancies(self, all_vacancies):
-        vacancies = {'objects': []}
+        vacancies = {'vacancies': []}
         for vacancy in all_vacancies['objects']:
             if vacancy['payment_from'] is None and vacancy['payment_to'] is None:
                 salary = "з.п. не указана"
@@ -107,11 +107,31 @@ class SJ_API(API):
                 salary = (vacancy['payment_from'] + vacancy['payment_to']) // 2
             new_job = {'name': vacancy['profession'], 'url': vacancy['link'], 'salary': salary,
                        'experience': vacancy['experience']['title']}
-            vacancies['objects'].append(new_job)
+            vacancies['vacancies'].append(new_job)
         return vacancies
 
-# # hh = HH_API('Москва')
-# # hh_vacancies = hh.format_vacancies(hh.get_vacancies())
+
+# class IndeedAPI(API):
 #
-# sj = SJ_API('Москва')
-# sj_vacancies = sj.format_vacancies(sj.get_vacancies())
+#     def connect(self):
+#         print(f"Connecting to Indeed API with API key: {self.api_key}")
+#         # Здесь можно выполнить логику подключения к API сайта Indeed
+#
+#     def get_jobs(self, keywords, location):
+#         print(f"Fetching jobs from Indeed API for keywords: {keywords}, location: {location}")
+#         # Здесь можно выполнить логику получения вакансий с сайта Indeed
+#
+#
+# class LinkedInAPI(API):
+#
+#     def connect(self):
+#         print(f"Connecting to LinkedIn API with API key: {self.api_key}")
+#         # Здесь можно выполнить логику подключения к API сайта LinkedIn
+#
+#     def get_jobs(self, keywords, location):
+#         print(f"Fetching jobs from LinkedIn API for keywords: {keywords}, location: {location}")
+#         # Здесь можно выполнить логику получения вакансий с сайта LinkedIn
+#
+#     def format_metod(self):
+#         pass
+#

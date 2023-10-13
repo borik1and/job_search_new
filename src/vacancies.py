@@ -16,7 +16,19 @@ class Vacancy:
     def __str__(self):
         return (f"{self.__class__.__name__}('Професия: {self.name}', 'Страничка оъявления: {self.url}',"
                 f" 'Зарплата: {self.salary}', 'Опыт: {self.exp}')")
-        pass
+
+    def __ge__(self, other):
+        # Сравнение по зарплате для текущей вакансии и другой вакансии (other)
+        return self.salary >= other.salary
+
+    def __lt__(self, other):
+        # Сравнение по зарплате для текущей вакансии и другой вакансии (other)
+        return self.salary < other.salary
+
+    def __eq__(self, other):
+        # Сравнение по зарплате для текущей вакансии и другой вакансии (other)
+        return self.salary == other.salary
+
 
     def instantiate_from_json(self, file_name='vacancy.json'):
         with open(file_name, 'r') as json_file:

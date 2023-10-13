@@ -1,12 +1,12 @@
 from pprint import pprint
+import os
+from src.vacancies import compare_vacancies_by_salary
 
 from src.class_save import JsonSave, add_vacancy
 
 # from pprint import pprint
 
 from src.class_api import HH_API, SJ_API
-
-
 
 # sj_api = SJ_API()
 
@@ -29,5 +29,16 @@ JsonSave.all_vacancies = hh_vacancies['vacancies'] + sj_vacancies['vacancies']
 # объединить вакансии hh и sj в один общий список с платформ
 
 add_vacancy()
+sorted_vacancies = compare_vacancies_by_salary()
+pprint(sorted_vacancies)
+# Вывод отсортированных вакансий
+for vacancy in sorted_vacancies:
+    print(f"Наименование: {vacancy.name}, Зарплата: {vacancy.salary}")
 
-# pprint(JsonSave.all_vacancies)
+erase = input('Хотите удалить временный файл с данными? да или нет?: ')
+if erase == 'да' or erase == 'yes':
+    if os.path.exists('vacancies.json'):
+        os.remove('vacancies.json')
+else:
+    pass
+# # pprint(JsonSave.all_vacancies)

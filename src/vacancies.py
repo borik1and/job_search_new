@@ -1,4 +1,5 @@
 import json
+from src.class_save import JsonSave
 
 
 class Vacancy:
@@ -29,7 +30,6 @@ class Vacancy:
         # Сравнение по зарплате для текущей вакансии и другой вакансии (other)
         return self.salary == other.salary
 
-
     def instantiate_from_json(self, file_name='vacancy.json'):
         with open(file_name, 'r') as json_file:
             data = json.load(json_file)
@@ -40,3 +40,13 @@ class Vacancy:
 
     def sort_vacancy(self):
         pass
+
+
+def compare_vacancies_by_salary():
+    # Функция для сравнения вакансий по зарплате
+    data = JsonSave.get_vacancies  # Вызываем функцию, чтобы получить данные
+    vacancies = [Vacancy(v['name'], v['url'], v['salary'], v['experience']) for v in data]
+
+    # Сортировка вакансий по зарплате (по убыванию)
+    sorted_vacancies = sorted(vacancies, key=lambda vacancy: vacancy.salary, reverse=True)
+    return sorted_vacancies

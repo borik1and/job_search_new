@@ -110,28 +110,9 @@ class SJ_API(API):
             vacancies['vacancies'].append(new_job)
         return vacancies
 
-
 # class IndeedAPI(API):
-#
-#     def connect(self):
-#         print(f"Connecting to Indeed API with API key: {self.api_key}")
-#         # Здесь можно выполнить логику подключения к API сайта Indeed
-#
-#     def get_jobs(self, keywords, location):
-#         print(f"Fetching jobs from Indeed API for keywords: {keywords}, location: {location}")
-#         # Здесь можно выполнить логику получения вакансий с сайта Indeed
+#   pass
 #
 #
 # class LinkedInAPI(API):
-#
-#     def connect(self):
-#         print(f"Connecting to LinkedIn API with API key: {self.api_key}")
-#         # Здесь можно выполнить логику подключения к API сайта LinkedIn
-#
-#     def get_jobs(self, keywords, location):
-#         print(f"Fetching jobs from LinkedIn API for keywords: {keywords}, location: {location}")
-#         # Здесь можно выполнить логику получения вакансий с сайта LinkedIn
-#
-#     def format_metod(self):
-#         pass
-#
+#   pass

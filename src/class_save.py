@@ -1,16 +1,19 @@
 import json
 
 
-
 class JsonSave:
     all_vacancies = {}
 
-    def delete_file(self, file_name):
-        with open(file_name, 'w'):
-            pass
+    def __init__(self):
+        self.file_name = 'vacancies.json'
 
-    def get_vacancies(self, file_name='vacancy.json'):
-        with open(file_name, 'r', encoding='utf-8') as json_file:
+    @staticmethod
+    def delete_file(self):
+        with open(self.file_name, 'w'):
+            pass
+    @staticmethod
+    def get_vacancies(self):
+        with open(self.file_name, 'r', encoding='utf-8') as json_file:
             data = json.load(json_file)
             return data
 

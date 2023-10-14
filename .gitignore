@@ -11,3 +11,4 @@
 /.idea/vcs.xml
 /poetry.lock
 /src/test1.py
+/src/vacancies.json

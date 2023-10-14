@@ -31,21 +31,27 @@ class Vacancy:
         return self.salary == other.salary
 
     @staticmethod
-    def instantiate_from_json():
-        data = JsonSave.get_vacancies
-
-        for vacancy in data['vacancies']:
-            Vacancy.all.append(Vacancy(vacancy['name'], vacancy['url'], vacancy['salary'], vacancy['exp']))
-            return Vacancy.all
+    def compare_vacancies_by_salary():
+        data = JsonSave.get_vacancies()  # Вызываем функцию, чтобы получить данные
+        if data:
+            vacancies = [Vacancy(v['name'], v['url'], v['salary'], v['experience']) for v in data['vacancies']]
+            sorted_vacancies = sorted(vacancies, key=lambda vacancy: vacancy.salary, reverse=True)
+            Vacancy.all = sorted_vacancies
+            return sorted_vacancies
+        else:
+            print("Нет данных о вакансиях.")
+            return []
 
     def sort_vacancy(self):
         pass
 
-# def compare_vacancies_by_salary():
-#     # Функция для сравнения вакансий по зарплате
-#     data = JsonSave.get_vacancies  # Вызываем функцию, чтобы получить данные
-#     vacancies = [Vacancy(v['name'], v['url'], v['salary'], v['experience']) for v in data]
-#
-#     # Сортировка вакансий по зарплате (по убыванию)
-#     sorted_vacancies = sorted(vacancies, key=lambda vacancy: vacancy.salary, reverse=True)
-#     return sorted_vacancies
+    @staticmethod
+    def print_vacancies():
+        """Печатает информацию о вакансиях в консоль."""
+        for_print = Vacancy.all
+        count = 1
+        for vacancy in for_print:
+            print(
+                f'Вакансия №{count}:\nНазвание:{vacancy.name}\nЗарплата:{vacancy.salary} рублей\nОпыт работы: {vacancy.exp}\n')
+        count += 1
+

@@ -43,7 +43,7 @@ class HH_API(API):
         vacancies = {'vacancies': []}
         for vacancy in all_vacancies['items']:
             if vacancy['salary'] is None:
-                salary = "з.п. не указана"
+                salary = 0
             elif vacancy['salary']['from'] is None:
                 salary = vacancy['salary']['to']
             elif vacancy['salary']['to'] is None:

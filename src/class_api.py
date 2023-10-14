@@ -14,7 +14,7 @@ class HH_API(API):
         self.params = {
             'per_page': 100,
             'text': keyword,
-            'area': '67'
+            'area': 1
         }
 
     def __repr__(self):
@@ -68,7 +68,7 @@ class SJ_API(API):
         self.params = {
             'per_page': 100,
             'text': keyword,
-            'area': 67
+            'area': 1
         }
 
     def __repr__(self):

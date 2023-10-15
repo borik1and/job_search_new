@@ -14,7 +14,7 @@ class HH_API(API):
         self.params = {
             'per_page': 100,
             'text': keyword,
-            'area': 67
+            'area': 1
         }
 
     def __repr__(self):
@@ -43,7 +43,7 @@ class HH_API(API):
         vacancies = {'vacancies': []}
         for vacancy in all_vacancies['items']:
             if vacancy['salary'] is None:
-                salary = "з.п. не указана"
+                salary = 0
             elif vacancy['salary']['from'] is None:
                 salary = vacancy['salary']['to']
             elif vacancy['salary']['to'] is None:
@@ -68,7 +68,7 @@ class SJ_API(API):
         self.params = {
             'per_page': 100,
             'text': keyword,
-            'area': 67
+            'area': 1
         }
 
     def __repr__(self):
@@ -95,7 +95,7 @@ class SJ_API(API):
     #     return areas
 
     def format_vacancies(self, all_vacancies):
-        vacancies = {'objects': []}
+        vacancies = {'vacancies': []}
         for vacancy in all_vacancies['objects']:
             if vacancy['payment_from'] is None and vacancy['payment_to'] is None:
                 salary = "з.п. не указана"
@@ -107,11 +107,12 @@ class SJ_API(API):
                 salary = (vacancy['payment_from'] + vacancy['payment_to']) // 2
             new_job = {'name': vacancy['profession'], 'url': vacancy['link'], 'salary': salary,
                        'experience': vacancy['experience']['title']}
-            vacancies['objects'].append(new_job)
+            vacancies['vacancies'].append(new_job)
         return vacancies
 
-# # hh = HH_API('Москва')
-# # hh_vacancies = hh.format_vacancies(hh.get_vacancies())
+# class IndeedAPI(API):
+#   pass
 #
-# sj = SJ_API('Москва')
-# sj_vacancies = sj.format_vacancies(sj.get_vacancies())
+#
+# class LinkedInAPI(API):
+#   pass

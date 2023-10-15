@@ -1,4 +1,3 @@
-import json
 from src.class_save import JsonSave
 
 
@@ -57,4 +56,3 @@ class Vacancy:
                 f'Вакансия №{count}:\nНазвание:{vacancy.name}\n'
                 f'Зарплата:{vacancy.salary} рублей\nОпыт работы: {vacancy.exp}\nСсылка на сайт: {vacancy.url}\n')
             count += 1
-

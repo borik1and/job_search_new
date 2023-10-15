@@ -2,6 +2,7 @@ from src.class_save import JsonSave, add_vacancy
 from src.class_api import HH_API, SJ_API
 from src.vacancies import Vacancy
 
+
 def user_interaction():
     print()
     print('Ести не указать ключевых слов, то выведуться все возможные вакании без фильтрации.')

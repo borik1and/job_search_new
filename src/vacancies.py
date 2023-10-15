@@ -46,12 +46,15 @@ class Vacancy:
         pass
 
     @staticmethod
-    def print_vacancies():
-        """Печатает информацию о вакансиях в консоль."""
+    def print_vacancies(limit=20):
+        """Печатает информацию о вакансиях в консоль, ограничивая количество вакансий до заданного лимита."""
         for_print = Vacancy.all
         count = 1
         for vacancy in for_print:
+            if count > limit:
+                break  # Завершаем цикл, если достигнуто заданное ограничение
             print(
-                f'Вакансия №{count}:\nНазвание:{vacancy.name}\nЗарплата:{vacancy.salary} рублей\nОпыт работы: {vacancy.exp}\n')
-        count += 1
+                f'Вакансия №{count}:\nНазвание:{vacancy.name}\n'
+                f'Зарплата:{vacancy.salary} рублей\nОпыт работы: {vacancy.exp}\nСсылка на сайт: {vacancy.url}\n')
+            count += 1
 

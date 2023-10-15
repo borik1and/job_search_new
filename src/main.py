@@ -4,13 +4,17 @@ from src.class_api import HH_API, SJ_API
 from src.vacancies import Vacancy
 
 # стираем фаил json из пребедущего цикла если есть
-if os.path.exists('vacancies.json'):
-    os.remove('vacancies.json')
+JsonSave.delete_file()
 
-keyword = input('Введите слово для поиска вакансий: ')
 print()
-print("'1' - hh.ru, '2' - superjob.ru, '3' - на обоих платформах")
+print('Ести не указать ключевых слов, то выведуться все возможные вакании без фильтрации.')
+keyword = input('Введите ключевые слова для фильтрации вакансий: ')
+print()
+print(" '1' - hh.ru\n '2' - superjob.ru\n '3' - на обоих платформах\n")
 set_platform = input('Выберите платформу для поиска вакансий: ')
+print()
+print('если не указать количество вакансий в ТОПЕ, будет выведено первых 20 вакансий.')
+numbers_of_vacancies_top = input('Укажите количество выводимых вакансий ТОП:  ')
 
 hh = HH_API(keyword)
 hh_vacancies = hh.format_vacancies(hh.get_vacancies())
@@ -31,10 +35,11 @@ else:
     print('Ваш выбор не опознан, ищем везде.')
     JsonSave.all_vacancies['vacancies'] = hh_vacancies['vacancies'] + sj_vacancies['vacancies']
 
+print()
 # сохраняем в файл json
 add_vacancy()
 Vacancy.compare_vacancies_by_salary()
-vac = Vacancy.print_vacancies()
+vac = Vacancy.print_vacancies(numbers_of_vacancies_top)
 print(vac)
 # sorted_vacancies = compare_vacancies_by_salary()
 # pprint(sorted_vacancies)

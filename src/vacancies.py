@@ -51,7 +51,7 @@ class Vacancy:
         for_print = Vacancy.all
         count = 1
         for vacancy in for_print:
-            if count > limit:
+            if count > int(limit):
                 break  # Завершаем цикл, если достигнуто заданное ограничение
             print(
                 f'Вакансия №{count}:\nНазвание:{vacancy.name}\n'

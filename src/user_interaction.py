@@ -12,7 +12,11 @@ def user_interaction():
     set_platform = input('Выберите платформу для поиска вакансий: ')
     print()
     print('если не указать количество вакансий в ТОПЕ, будет выведено первых 20 вакансий.')
-    num_of_vacancy_top = input('Укажите количество выводимых вакансий ТОП:  ')
+
+    try:
+        num_of_vacancy_top = int(input('Укажите количество выводимых вакансий ТОП: '))
+    except ValueError:
+        num_of_vacancy_top = 20  # Устанавливаем значение по умолчанию в 20
 
     hh = HH_API(keyword)
     hh_vacancies = hh.format_vacancies(hh.get_vacancies())
@@ -35,5 +39,6 @@ def user_interaction():
     print()
     add_vacancy()
     Vacancy.compare_vacancies_by_salary()
-    vac = Vacancy.print_vacancies(num_of_vacancy_top)
-    print(vac)
+    # vac = Vacancy.print_vacancies(num_of_vacancy_top)
+    # print(vac)
+    Vacancy.print_vacancies(num_of_vacancy_top)
